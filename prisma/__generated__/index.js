@@ -171,7 +171,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/xxx/Документы/fullstack-auth/nestjs-server/prisma/__generated__",
+      "value": "C:\\pet-project\\fullstack-auth\\nestjs-server\\prisma\\__generated__",
       "fromEnvVar": null
     },
     "config": {
@@ -180,16 +180,20 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/xxx/Документы/fullstack-auth/nestjs-server/prisma/schema.prisma",
+    "sourceFilePath": "C:\\pet-project\\fullstack-auth\\nestjs-server\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "..",
@@ -199,6 +203,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -207,8 +212,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// описывается структура базы данных\n// именно в этом файле описываются таблицы и их поля\n// после изменения этого файла нужно выполнить команду npx prisma generate\n// чтобы сгенерировать новые модели\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./__generated__\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRES_URI\")\n}\n\nmodel User {\n  id String @id @default(uuid())\n\n  email    String @unique\n  password String\n\n  displayName String\n  picture     String?\n\n  role UserRole @default(REGULAR)\n\n  isVerified         Boolean @default(false) @map(\"is_verified\")\n  isTwoFactorEnabled Boolean @default(false) @map(\"is_two_factor_enabled\")\n\n  method AutMethod\n\n  accounts Account[]\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"users\")\n}\n\nmodel Account {\n  id String @id @default(uuid())\n\n  type     String\n  provider String\n\n  refreshToken String? @map(\"refresh_token\")\n  accessToken  String? @map(\"access_token\")\n  expiresAt    Int     @map(\"expires_at\")\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n  User      User?    @relation(fields: [userId], references: [id])\n  userId    String?  @map(\"user_id\")\n\n  @@map(\"accounts\")\n}\n\nmodel Token {\n  id String @id @default(uuid())\n\n  email     String\n  token     String    @unique\n  type      TokenType\n  expiresIn DateTime  @map(\"expires_in\")\n\n  @@map(\"tokens\")\n}\n\nenum UserRole {\n  REGULAR\n  ADMIN\n}\n\nenum AutMethod {\n  CREDENTIALS\n  GOOGLE\n  YANDEX\n}\n\nenum TokenType {\n  VERIFICATION\n  TWO_FACTOR\n  PASSWORD_RESET\n}\n",
-  "inlineSchemaHash": "92a8c26d4550c5e152da457977d061483220a8c3a3242429381d95bd18897391",
+  "inlineSchema": "// описывается структура базы данных\n// именно в этом файле описываются таблицы и их поля\n// после изменения этого файла нужно выполнить команду npx prisma generate\n// чтобы сгенерировать новые модели\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"windows\"]\n  output        = \"./__generated__\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRES_URI\")\n}\n\nmodel User {\n  id String @id @default(uuid())\n\n  email    String @unique\n  password String\n\n  displayName String\n  picture     String?\n\n  role UserRole @default(REGULAR)\n\n  isVerified         Boolean @default(false) @map(\"is_verified\")\n  isTwoFactorEnabled Boolean @default(false) @map(\"is_two_factor_enabled\")\n\n  method AutMethod\n\n  accounts Account[]\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"users\")\n}\n\nmodel Account {\n  id String @id @default(uuid())\n\n  type     String\n  provider String\n\n  refreshToken String? @map(\"refresh_token\")\n  accessToken  String? @map(\"access_token\")\n  expiresAt    Int     @map(\"expires_at\")\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n  User      User?    @relation(fields: [userId], references: [id])\n  userId    String?  @map(\"user_id\")\n\n  @@map(\"accounts\")\n}\n\nmodel Token {\n  id String @id @default(uuid())\n\n  email     String\n  token     String    @unique\n  type      TokenType\n  expiresIn DateTime  @map(\"expires_in\")\n\n  @@map(\"tokens\")\n}\n\nenum UserRole {\n  REGULAR\n  ADMIN\n}\n\nenum AutMethod {\n  CREDENTIALS\n  GOOGLE\n  YANDEX\n}\n\nenum TokenType {\n  VERIFICATION\n  TWO_FACTOR\n  PASSWORD_RESET\n}\n",
+  "inlineSchemaHash": "e3dab9e99cfcce44027cf5b9c3f5ebed973700b402850fa6865bc5aeb163ac4c",
   "copyEngine": true
 }
 
@@ -247,8 +252,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-path.join(process.cwd(), "prisma/__generated__/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "prisma/__generated__/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma/__generated__/schema.prisma")

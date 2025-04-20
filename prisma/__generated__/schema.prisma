@@ -4,8 +4,9 @@
 // чтобы сгенерировать новые модели
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "./__generated__"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
+  output        = "./__generated__"
 }
 
 datasource db {
